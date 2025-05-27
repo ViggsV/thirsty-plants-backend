@@ -1,17 +1,17 @@
-const Ad = require("../Models/Ad");
+const Plant = require("../Models/Plant");
 const User = require("../Models/User");
 
-exports.getAds = async (req, res) => {
+exports.getPlants = async (req, res) => {
   try {
-    const ads = await Ad.find();
-    res.json(ads);
+    const plants = await Plant.find();
+    res.json(plants);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-exports.addAd = async (req, res) => {
-  console.log("addAd");
+exports.addPlant = async (req, res) => {
+  console.log("addPlant");
   console.log(req.headers);
   console.log(req.body);
 
@@ -31,15 +31,15 @@ exports.addAd = async (req, res) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  const ad = new Ad({
+  const plant = new Plant({
     title: req.body.title,
     description: req.body.description,
-    price: req.body.price,
+    wateringFrequency: req.body.wateringFrequency,
     userId: userInDB._id,
   });
   try {
-    const newAd = await ad.save();
-    res.status(201).json(newAd);
+    const newPlant = await plant.save();
+    res.status(201).json(newPlant);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

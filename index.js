@@ -7,6 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
+// this code says that requests should only come from http://localhost:3000
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
@@ -19,10 +20,10 @@ mongoose.connect(process.env.MONGODB_URL)
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
-const adRoutes = require('./routes/adRoutes');
+const plantRoutes = require('./routes/plantRoutes');
 const authRoutes = require('./routes/authRoutes');
 
-app.use('/ads', adRoutes);
+app.use('/plants', plantRoutes);
 app.use('/auth', authRoutes);
 
 // Start the server
