@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const adSchema = new mongoose.Schema({
+const plantSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -9,7 +9,7 @@ const adSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  price: {
+  wateringFrequency: {
     type: Number,
     required: true
   },
@@ -24,4 +24,4 @@ const adSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Ad', adSchema);
+module.exports = mongoose.model('Plant', plantSchema);
