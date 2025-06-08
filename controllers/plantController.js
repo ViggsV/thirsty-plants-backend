@@ -1,5 +1,7 @@
 const Plant = require("../Models/Plant");
 const User = require("../Models/User");
+const Authenticate = require("../middleware/authMiddleware");
+
 
 exports.getPlants = async (req, res) => {
   try {
@@ -11,33 +13,14 @@ exports.getPlants = async (req, res) => {
 };
 
 exports.addPlant = async (req, res) => {
-  console.log("addPlant");
-  console.log(req.headers);
-  console.log(req.body);
-
-  const userToken = req.headers.authorization.split(" ")[1];
-
-  console.log(userToken);
-
-  if (!userToken) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  const userInDB = await User.findOne({ token: userToken });
-
-  console.log(userInDB);
-
-  if (!userInDB) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  const plant = new Plant({
-    title: req.body.title,
-    description: req.body.description,
-    wateringFrequency: req.body.wateringFrequency,
-    userId: userInDB._id,
-  });
   try {
+    const plant = new Plant({
+      title: req.body.title,
+      description: req.body.description,
+      wateringFrequency: req.body.wateringFrequency,
+      userId: req.user.id, // comes from JWT
+    });
+
     const newPlant = await plant.save();
     res.status(201).json(newPlant);
   } catch (err) {

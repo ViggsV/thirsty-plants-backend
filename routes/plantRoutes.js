@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { getPlants, addPlant, updateTodo, deleteTodo } = require('../controllers/plantController');
+const authenticate = require('../middleware/authMiddleware');
 
 // Get all plants
-router.get('/', getPlants);
+router.get('/', authenticate, getPlants);
 
 // Create new plant
-router.post('/', addPlant);
+router.post('/', authenticate, addPlant);
 
 // // update a plant
 // router.put("/:id", updateTodo);
